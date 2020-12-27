@@ -6,9 +6,12 @@ import (
 	"testing"
 )
 
-var sizes = []int{100_000, 1_000_000}
+var sizes = []int{100_000, 1_000_000, 10_000_000, 100_000_000, 1_000_000_000}
 var cutPoints = []float64{0.1, 0.5, 0.9}
 
+// BenchmarkSliceRemoval measures the performance of removing an element from
+// a Slice of int64 numbers. The benchmark runs over a variety of Slice sizes
+// and removal points.
 func BenchmarkSliceRemoval(b *testing.B) {
 	for _, size := range sizes {
 		slice := make([]int64, size)
@@ -110,6 +113,9 @@ func TestRemove(t *testing.T) {
 	}
 }
 
+// BenchmarkListRemoval measures the performance of removing an element from
+// a linked list of int64 numbers. The benchmark runs over a variety of list
+// sizes and removal points.
 func BenchmarkListRemoval(b *testing.B) {
 	for _, size := range sizes {
 		list := makeList(size - 1)
@@ -127,7 +133,6 @@ func BenchmarkListRemoval(b *testing.B) {
 					if _, err := removeAt(removeIdx, list); err != nil {
 						b.Fatal(err)
 					}
-
 				}
 			})
 		}
